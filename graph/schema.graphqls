@@ -1,0 +1,44 @@
+
+type User {
+  id: ID!
+  username: String!
+  fullName: String
+  email: String!
+  dob: Date
+  Gender: Gender
+  contactNumber: String!
+  nationality: String
+  languages: [String]
+  Genre: [String]
+}
+
+scalar Date
+
+enum Gender {
+  MALE
+  FEMALE
+  OTHER
+}
+
+
+type Query {
+  users: [User!]!
+}
+
+input NewUserInput {
+  username: String!
+  fullName: String
+  email: String!
+  password: String!
+  dob: Date
+  gender: Gender
+  contactNumber: String!
+  nationality: String
+  languages: [String]
+  genres: [String]
+}
+
+type Mutation {
+  createUser(input: NewUserInput!): User!
+}
+
