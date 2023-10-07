@@ -2,77 +2,16 @@
 
 package model
 
-import (
-	"fmt"
-	"io"
-	"strconv"
-)
-
 type NewUserInput struct {
-	Username      string    `json:"username"`
-	FullName      *string   `json:"fullName,omitempty"`
-	Email         string    `json:"email"`
-	Password      string    `json:"password"`
-	Dob           *string   `json:"dob,omitempty"`
-	Gender        *Gender   `json:"gender,omitempty"`
-	ContactNumber string    `json:"contactNumber"`
-	Nationality   *string   `json:"nationality,omitempty"`
-	Languages     []*string `json:"languages,omitempty"`
-	Genres        []*string `json:"genres,omitempty"`
+	Username string  `json:"username"`
+	FullName *string `json:"fullName,omitempty"`
+	Email    string  `json:"email"`
+	Password string  `json:"password"`
 }
 
 type User struct {
-	ID            string    `json:"id"`
-	Username      string    `json:"username"`
-	FullName      *string   `json:"fullName,omitempty"`
-	Email         string    `json:"email"`
-	Dob           *string   `json:"dob,omitempty"`
-	Gender        *Gender   `json:"Gender,omitempty"`
-	ContactNumber string    `json:"contactNumber"`
-	Nationality   *string   `json:"nationality,omitempty"`
-	Languages     []*string `json:"languages,omitempty"`
-	Genre         []*string `json:"Genre,omitempty"`
-}
-
-type Gender string
-
-const (
-	GenderMale   Gender = "MALE"
-	GenderFemale Gender = "FEMALE"
-	GenderOther  Gender = "OTHER"
-)
-
-var AllGender = []Gender{
-	GenderMale,
-	GenderFemale,
-	GenderOther,
-}
-
-func (e Gender) IsValid() bool {
-	switch e {
-	case GenderMale, GenderFemale, GenderOther:
-		return true
-	}
-	return false
-}
-
-func (e Gender) String() string {
-	return string(e)
-}
-
-func (e *Gender) UnmarshalGQL(v interface{}) error {
-	str, ok := v.(string)
-	if !ok {
-		return fmt.Errorf("enums must be strings")
-	}
-
-	*e = Gender(str)
-	if !e.IsValid() {
-		return fmt.Errorf("%s is not a valid Gender", str)
-	}
-	return nil
-}
-
-func (e Gender) MarshalGQL(w io.Writer) {
-	fmt.Fprint(w, strconv.Quote(e.String()))
+	ID       string  `json:"id"`
+	Username string  `json:"username"`
+	FullName *string `json:"fullName,omitempty"`
+	Email    string  `json:"email"`
 }
